@@ -68,7 +68,7 @@ AT+LED=0 //关闭led灯，省电<br/>
 
  注：lilygo 公司已设计并销售有专用于 lilygo-epd47 的hc-08模块，直接插上即用，集成度更好, 已给AT命令预处理. <br/>
  如图:
-  <img src= 'https://github.com/lixy123/LilyGo-EPD47-HC08/blob/main/ink_weather.jpg?raw=true' /> <br/>
+  <img src= 'https://github.com/lixy123/nbiot_lilygo_epd47_weather/blob/main/hc08.JPG?raw=true' /> <br/>
   
 <b>三.代码说明:</b> <br/>
   <b>1.epd47_blue_waker_center_nb_iot 获取天气 </b>  <br/>
