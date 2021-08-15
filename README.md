@@ -52,7 +52,6 @@ B.第2套设备平时休眠，当收到第1套设备的数据后被唤醒，接�
   B.hc08     
      hc-08是一块 BLE4.0蓝牙模块 (购买时要告诉卖方要双晶振版本，否则不支持一级节能模式)<br/>
      hc-08需要配置成客户模式，一级节能模式,蓝牙名称用AT指令修改为edp47_ink，能防止被别的设备误连<br/>    
-     <br/>   
      引脚连接:<br/>
      lilygo-epd47 ==> hc-08<br/>
        VCC         VCC<br/>
@@ -66,8 +65,8 @@ AT+NAME=INK_047 //修改蓝牙名称，用于客户端查找蓝牙用<br/>
 AT+LED=0 //关闭led灯，省电<br/>
 注: 也可以通过连接到lilygo-epd47后,自编程序用lilygo-epd47虚拟串口传入AT命令<br/>
 
- 注：lilygo 公司已设计并销售有专用于 lilygo-epd47 的hc-08模块，直接插上即用，集成度更好, 已给AT命令预处理. <br/>
- 如图:
+ 注：lilygo 公司已设计并销售有专用于 lilygo-epd47 的hc-08模块，直接插上即用，集成度更好, 已进行AT命令预处理. <br/>
+ 如图, 蓝色小模块部分: <br/>
   <img src= 'https://github.com/lixy123/nbiot_lilygo_epd47_weather/blob/main/hc08.JPG?raw=true' /> <br/>
   
 <b>三.代码说明:</b> <br/>
