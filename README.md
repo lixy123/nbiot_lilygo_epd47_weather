@@ -80,6 +80,10 @@ AT+LED=0 //关闭led灯，省电<br/>
    编译分区：HUGE APP<br/>
    PSRAM ENABLED(如果有PSRAM)<br/>
    1.4选择端口，点击烧录<br/>
+注：<br/>
+config.h 文件处需要配置心知天气key,极速天气key ,注册方式见config.h<br/>
+心知天气用的免费版本，不限次，只适合发送一串文字信息，混在提醒记事文本串中，显示较简陋。<br/>
+极速天气可展示多天天气，表格状，界面华丽，使用其API需要给天气供应商付费<br/>
 
    <b>2.epd47_blue_waker_show_weather 显示天气 </b>   <br/>
   烧录到LilyGo-EPD47墨水屏<br/>
