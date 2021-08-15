@@ -61,6 +61,12 @@ B.第2套设备平时休眠，当收到第1套设备的数据后被唤醒，接�
        15          RX<br/>
        GND         GND<br/>
 
+hc08 AT命令预处理:<br/>
+AT+MODE=1 //设置成一级节能模式(必须)<br/>
+AT+NAME=INK_047 //修改蓝牙名称，用于客户端查找蓝牙用<br/>
+AT+LED=0 //关闭led灯，省电<br/>
+注: 也可以通过连接到lilygo-epd47后,自编程序用lilygo-epd47虚拟串口传入AT命令<br/>
+
 <b>三.代码说明:</b> <br/>
   <b>1.epd47_blue_waker_center_nb_iot 获取天气 </b>  <br/>
   烧录到ESP32开发板<br/> 
