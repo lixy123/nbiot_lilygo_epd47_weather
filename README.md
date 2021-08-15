@@ -39,8 +39,8 @@ B.第2套设备平时休眠，当收到第1套设备的数据后被唤醒，接�
   22    SCL <br/>  
   
 2.第2套设备 lilygo-epd47 + hc08
-
- <img src= 'https://github.com/lixy123/LilyGo-EPD47-HC08/raw/main/ink_chixi.jpg?raw=true' /> <br/>
+  <img src= 'https://github.com/lixy123/LilyGo-EPD47-HC08/blob/main/ink_weather.jpg?raw=true' /> <br/>
+  <img src= 'https://github.com/lixy123/LilyGo-EPD47-HC08/raw/main/ink_chixi.jpg?raw=true' /> <br/>
   功能：显示天气
   A.lilygo-epd47
      主控芯片为esp32，驱动墨水屏显示
@@ -59,8 +59,7 @@ B.第2套设备平时休眠，当收到第1套设备的数据后被唤醒，接�
 
 <b>三.代码说明:</b> <br/>
   <b>1.epd47_blue_waker_center_nb_iot 获取天气 </b>  <br/>
-  烧录到ESP32开发板<br/>
-    <img src= 'https://github.com/lixy123/LilyGo-EPD47-HC08/blob/main/sim7020-1.jpg?raw=true' /> <br/>
+  烧录到ESP32开发板<br/> 
    1.1 软件: arduino 1.8.13<br/>
    1.2 用到的库文件:<br/>
    arduino-esp32 版本 1.0.6<br/>
