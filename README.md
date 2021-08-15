@@ -15,59 +15,85 @@ B.第2套设备平时休眠，当收到第1套设备的数据后被唤醒，接�
 
 
 <b>二.硬件需求：</b><br/>
-1.lilygo-epd47  带esp32主控芯片的墨水屏.  可电池供电, 附加HC08蓝牙设备后能随时接收文字信息并显示<br/>
-     hc-08 BLE4.0蓝牙模块 (购买时要询问,告诉卖方要双晶振版本，否则不支持一级节能模式)<br/>
-     hc-08设置成客户模式，一级节能模式,蓝牙名称最好用AT指令修改下,防止被别的设备误连，建议名称：edp47_ink<br/>
-     lilygo 公司已开始出货 hc-08在lilygo-epd47 墨水屏上的专用集成模块成品,使用触摸屏长供电的vcc,数据引脚,集成度更好. <br/>
+1.第一套设备 ESP32 +sim7020c+DS3231
+ <img src= 'https://github.com/lixy123/LilyGo-EPD47-HC08/raw/main/sim7020-1.jpg?raw=true' /> <br/>
+
+  功能：获取天气信息，通过蓝牙将天所信息传给墨水屏，休眠<br/>
+  硬件清单：
+  A.esp32
+  最好用带psram的esp32,且编译时打开param:enabled,否则json解析天气会不稳定
+  
+  B.sim7020c
+  ESP32 Sim7020c <br/> 
+  5V    5v <br/>
+  GND   GND <br/>
+  12    TX <br/>
+  13    RX <br/>
+  15    RESET (拉低关闭/开启sim7020 休眠节能) <br/>
+  
+  C.DS3231
+  ESP32 DS3231<br/> 
+  5V    5v <br/>
+  GND   GND <br/>
+  21    SDA <br/>
+  22    SCL <br/>  
+  
+2.第2套设备 lilygo-epd47 + hc08
+
+ <img src= 'https://github.com/lixy123/LilyGo-EPD47-HC08/raw/main/ink_chixi.jpg?raw=true' /> <br/>
+  功能：显示天气
+  A.lilygo-epd47
+     主控芯片为esp32，驱动墨水屏显示
+     
+  B.hc08     
+     hc-08是一块 BLE4.0蓝牙模块 (购买时要告诉卖方要双晶振版本，否则不支持一级节能模式)<br/>
+     hc-08需要配置成客户模式，一级节能模式,蓝牙名称用AT指令修改为edp47_ink，能防止被别的设备误连<br/>
+     注：lilygo 公司已有销售专用于 lilygo-epd47 的hc-08模块，直接插上即用，集成度更好. <br/>
      <br/>
      注：官方数据，一级节能模式电流约 6μA ~2.6mA （待机） /1.6mA（工作）<br/>
-        相对于全速模式 8.5mA（待机）/9mA（待机） 节能效果明显<br/>
-        hc-08模块每日大部分时间应处于在 6μA ~2.6mA （待机）模式,理论电流消耗极低<br/>
+         相对于全速模式 8.5mA（待机）/9mA（待机） 节能效果明显<br/>
+         hc-08模块每日大部分时间应处于在 6μA ~2.6mA （待机）模式,理论电流消耗极低<br/>
      引脚连接:<br/>
      lilygo-epd47  hc-08<br/>
        VCC         VCC<br/>
        14          TX<br/>
        15          RX<br/>
        GND         GND<br/>
-    注：墨水屏进入节能休眠模式后，墨水屏顶端VCC,14，15,GND 插槽处的VCC的3.3V电压输出会中断，不能在此插槽处取电，要从ph2.0或18650处取电<br/>   
-    hc08 AT命令预处理:<br/>
-    AT+MODE=1        //设置成一级节能模式(必须)<br/>
-    AT+NAME=INK_047  //修改蓝牙名称，用于客户端查找蓝牙用<br/>
-    AT+LED=0          //关闭led灯，省电<br/>
-    注: 也可以通过连接到lilygo-epd47后,自编程序用lilygo-epd47虚拟串口传入AT命令
-    
-    
-2.ESP32 信息发送器, 获取信息,通过蓝牙将信息推送给墨水屏显示<br/>
-  2.1 ESP32开发板芯片(建议带psram) <br/>
-  2.2 如果后期想搞语音转文字高级功能，需要ESP32带PSRAM的版本, 可考虑用 lilygo-t-watch系列, t-watch本质上是ESP32外加外设的集成产品。<br/>  
-
 
 <b>三.代码说明:</b> <br/>
-
-  <b>epd47_blue_waker_center_nb_iot 蓝牙主机-中心</b>    
-    <img src= 'https://github.com/lixy123/LilyGo-EPD47-HC08/blob/main/sim7020-2.jpg?raw=true' /> <br/>
+  <b>1.epd47_blue_waker_center_nb_iot 获取天气 </b>  
+  烧录到ESP32开发板
     <img src= 'https://github.com/lixy123/LilyGo-EPD47-HC08/blob/main/sim7020-1.jpg?raw=true' /> <br/>
-      epd47_blue_waker_center_weather的 NB-IOT版本, 用nb-iot网代替wifi网<br/>
-     <b> 4.1 硬件组成：</b><br/>
-      A.ESP32开发板(建议带psram)<br/>
-      B.DS3231时钟模块 <br/>
-      C.Sim7020c模块 <br/>
-      把NB-IOT当路由器使用，适合于仓库，家里或车上没有wifi网络，或公司里虽然有wifi,但各种上网验证，不适合单片机连接上网的场合。<br/>
-     <b> 4.2 引脚连接:</b>  <br/>
-  ESP32 Sim7020c <br/> 
-  5V    5v <br/>
-  GND   GND <br/>
-  12    TX <br/>
-  13    RX <br/>
-  15    RESET  (注：仅用于sim7020复位，不用能用开，关sim7020) <br/>
-  
-  
+   1.1 软件: arduino 1.8.13
+   1.2 用到的库文件:
+   arduino-esp32 版本 1.0.6
+   1.3开发板选择：ESP32 DEV Module 
+   编译分区：HUGE APP
+   PSRAM ENABLED(如果有PSRAM)
+   1.4选择端口，点击烧录
+
+   <b>2.epd47_blue_waker_show_weather 显示天气 </b>   
+  烧录到LilyGo-EPD47墨水屏
+2.1 软件: arduino 1.8.13
+2.2 用到的库文件:
+https://github.com/espressif/arduino-esp32 版本:1.0.6
+https://github.com/Xinyuan-LilyGO/TTGO_TWatch_Library 最新版本, 仅为了用到它定义的开发板
+https://github.com/Xinyuan-LilyGO/LilyGo-EPD47 最新版本
+https://github.com/bblanchon/ArduinoJson 版本: 6
+https://github.com/ivanseidel/LinkedList 最新版本
+2.3开发板选择：TTGO-T-WATCH / PSRAM ENABLED
+2.4选择端口，点击烧录
+注：
+电池供电，能自动休眠.
   
 <b>四.电流实测:</b><br/>
-  1.休眠： <1ma （客户端蓝牙发完信息要断开，否则墨水屏的蓝牙模块不能进入休眠，电流约9ma)<br/>
+  第2套设备 lilygo-epd47 + hc08：
+  1.休眠： <1ma <br/>
   2.唤醒后: 50-60ma<br/>
-  蓝牙模块官方数据提到待机电流约6μA ~2.6mA，墨水屏待机电流约0.17ma，合计电流约<0.4ma<br/>
-  3.1200ma的电池约能用 1200*0.8/24/0.4=80天,满足预期<br/>
+  蓝牙模块官方数据：待机电流约6μA ~2.6mA，
+  墨水屏待机电流约0.17ma，
+  因hc08蓝牙电流持续变化，合计总电流估算约在 0.4-0.8ma之间  <br/>
+  3.2500ma的电池约能用 2500*0.8/24/30约4月, 实测一般能用2-3月<br/>
   
 
   
