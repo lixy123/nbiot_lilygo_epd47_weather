@@ -19,7 +19,7 @@ B.第2套设备平时休眠，当收到第1套设备的数据后被唤醒，接�
 2.有些场所虽然有wifi，但用单片机连接wifi限制，麻烦,甚至根本不能连接。<br/>
 
 <b>二.硬件需求：</b><br/>
-1.第一套设备 ESP32 +sim7020c+DS3231
+1.第一套设备 ESP32 +sim7020c+DS3231<br/>
  <img src= 'https://github.com/lixy123/LilyGo-EPD47-HC08/raw/main/sim7020-1.jpg?raw=true' /> <br/>
 
   功能：获取天气信息，通过蓝牙将天所信息传给墨水屏，休眠<br/>
@@ -42,7 +42,7 @@ B.第2套设备平时休眠，当收到第1套设备的数据后被唤醒，接�
   21    SDA <br/>
   22    SCL <br/>  
   
-2.第2套设备 lilygo-epd47 + hc08
+2.第2套设备 lilygo-epd47 + hc08<br/>
   <img src= 'https://github.com/lixy123/LilyGo-EPD47-HC08/blob/main/ink_weather.jpg?raw=true' /> <br/>
   <img src= 'https://github.com/lixy123/LilyGo-EPD47-HC08/raw/main/ink_chixi.jpg?raw=true' /> <br/>
   功能：显示天气
